@@ -316,6 +316,16 @@ class TestRbacApi(TestCaseBase):
         self.assertTrue(e.enforce("bob", "domain2", "data2", "read"))
         self.assertTrue(e.enforce("bob", "domain2", "data2", "write"))
 
+    def test_user(self):
+        e = self.get_enforcer(
+            get_examples("rbac_model.conf"), get_examples("rbac_policy.csv")
+        )
+        if e.enforce("superAdmin", "project", "read"):
+            print('superAdmin can read project')
+        else:
+            print('superAdmin can not read project')
+
+
 
 class TestRbacApiSynced(TestRbacApi):
     def get_enforcer(self, model=None, adapter=None):
